@@ -3,6 +3,18 @@
 1. Create React App
 2. Configured Tailwind CSS
 3. Create basic components and setup routing
+4. Built Header Component
+
+
+# Folder Structure
+
+  App.js
+  |
+  Body.js
+  |-Login.js
+  |   |-Header.js
+  |  
+  |-Browse.js
 
 
 # Features
