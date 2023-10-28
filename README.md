@@ -1,13 +1,15 @@
 # Netflix-GPT
 
-1. Create React App
-2. Configured Tailwind CSS
-3. Create basic components and setup routing
-4. Built Header Component
-5. Login Form
-6. Sign Up Form
-7. Form Validation 
-8. useRef() Hook
+1.  Create React App
+2.  Configured Tailwind CSS
+3.  Create basic components and setup routing
+4.  Built Header Component
+5.  Login Form
+6.  Sign Up Form
+7.  Form Validation 
+8.  useRef() Hook
+9.  Firebase Setup
+10. Deploying App to Production (Firebase Hosting)
 
 
 
