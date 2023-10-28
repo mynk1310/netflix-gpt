@@ -1,6 +1,8 @@
 import React, {useRef, useState} from 'react';
 import Header from './Header';
 import { checkValidData } from '../utils/validate';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import  { auth } from "../utils/firebase";
 
 const Login = () => {
 
@@ -8,6 +10,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage]=useState(null);  //used to have the error message
 
  
+  const user=useRef(null);
   const email=useRef(null);
   const password=useRef(null);
 
@@ -24,6 +27,65 @@ const Login = () => {
     setErrorMessage(message);
 
     //Once Validation has succeded , we can do a Sign In/Sign Up
+
+    if(message) return;  //if message has something => Validation error => No need to go ahead => return
+
+    
+
+    /*SIGN UPLogic */
+    if(!signInWithEmailAndPassword)
+    {
+     //create New User api => will take auth, emailId, password => once call this api -> will create a User on Firebase and give a response
+       createUserWithEmailAndPassword( 
+        auth, 
+        email.current.value, 
+        password.current.value
+      )
+      //if response is success, it will give us a User Object
+      .then((userCredential) => {
+          // Signed up 
+        const user = userCredential.user;
+        console.log(user);
+      })
+      //if response fails, it will give an error message, which will be caught in catch block -> can show in UI
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        setErrorMessage(errorCode + ": " + errorMessage);
+
+      });
+
+    }
+
+    /**SIGN IN Logic */  
+    else{
+
+      signInWithEmailAndPassword(
+        auth, 
+        email.current.value, 
+        password.current.value
+      )
+      .then((userCredential) => {
+          // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+
+      })
+       .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        setErrorMessage(errorCode + ": " + errorMessage);
+      });
+
+
+    }
+
+
+      
+    
+ 
 
 
 
@@ -43,7 +105,7 @@ const Login = () => {
         <div className='text-3xl font-semibold text-white m-2 px-2 pt-0 pb-6 rounded-md'>{isSignInForm?"Sign In":"Sign Up"}</div>
         
         
-        {!isSignInForm && <input type="text" placeholder='Full Name' className='px-2 py-3 mx-2 my-4 w-full text-white rounded-md bg-gray-800' />}
+        {!isSignInForm && <input type="text" ref={user} placeholder='Full Name' className='px-2 py-3 mx-2 my-4 w-full text-white rounded-md bg-gray-800' />}
         
         <input type="text" placeholder='Email' ref={email}
                className='px-2 py-3 mx-2 my-4 w-full text-white rounded-md bg-gray-800' />

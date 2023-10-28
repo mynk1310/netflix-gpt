@@ -10,6 +10,7 @@
 8.  useRef() Hook
 9.  Firebase Setup
 10. Deploying App to Production (Firebase Hosting)
+11. Basic Logic for Sign In and Sign Up
 
 
 
